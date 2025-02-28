@@ -1,0 +1,26 @@
+#include <iostream>  
+#include <cstdlib>   
+#include <ctime>     
+#include <iomanip> 
+using namespace std;
+int main() {
+  double S[7];    
+  double *ptr = S;   
+  srand(time(0)); 
+  cout << "Температура по дням недели:" << endl;
+  for (int i = 0; i < 7; ++i) {
+    *ptr = -20 + (rand() % 51);
+    cout << "День " << i + 1 << ": " << fixed << setprecision(1) << *ptr << " °C" << endl; 
+    ptr++;  
+  }
+  ptr = S;
+  double sum = 0.0; 
+  for (int i = 0; i < 7; ++i) {
+    sum += *ptr; 
+    ptr++;
+  }
+  double average = sum / 7; 
+  cout << endl << "Средняя температура за неделю: " << fixed << setprecision(1) << average << " °C" << endl;
+
+  return 0;
+}
