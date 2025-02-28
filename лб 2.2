@@ -1,0 +1,32 @@
+#include <iostream> 
+#include <cstdlib>  
+#include <ctime>
+using namespace std;
+int main() {
+  const int SIZE = 10;          
+  int arr[SIZE];                 
+  int *ptr = arr;           
+srand(time(0));            
+  cout << "Сгенерированный массив:" << endl;
+  for (int i = 0; i < SIZE; ++i) {
+    *ptr = rand() % 100;           
+    cout << "arr[" << i << "] = " << *ptr << endl; 
+    ptr++;                      
+  }
+
+  ptr = arr;                    
+  int max_value = *ptr;         
+  int max_index = 0;           
+
+  for (int i = 1; i < SIZE; ++i) { 
+    ptr++;                         
+    if (*ptr > max_value) {         
+      max_value = *ptr;         
+      max_index = i;            
+    }
+  }
+  cout << endl << "Максимальный элемент: " << max_value << endl;
+  cout << "Номер максимального элемента: " << max_index << endl;
+
+  return 0; 
+}
