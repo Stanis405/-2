@@ -39,7 +39,7 @@ int main() {
                 // Если текущее слово не пустое, проверяем его длину
                 if (!currentWord.empty()) {
                     // Если текущее слово длиннее самого длинного слова, обновляем его
-                    if (currentWord.length() > longestWord.length()) {
+                    if ((longestWord.empty() || currentWord.length() > longestWord.length()) {
                         longestWord = currentWord;
                     }
                     currentWord.clear(); // Очищаем текущее слово
