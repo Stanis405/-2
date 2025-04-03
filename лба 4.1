@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+#include <locale>
+#include <codecvt>
+#include <cctype>
+
+using namespace std;
+
+int main() {
+    // Устанавливаем локаль для поддержки Unicode
+    setlocale(LC_ALL, ""); // На Windows может понадобиться указать кодировку
+
+    wstring input;
+
+    wcout << L"Введите текст и в конце напишите end:" << endl;
+
+    while (true) {
+        getline(wcin, input);
+
+        // Проверка на пустой ввод
+        if (input.empty()) {
+            wcout << L"Ошибка 404" << endl; // Выводим сообщение об ошибке
+            break; // Запрашиваем ввод снова
+        }
+
+        if (input == L"end") {
+            break;
+        }
+
+        wcout << L"Исходная строка: " << input << endl;
+
+        wstring output = L""; // Строка для вывода измененного текста
+        wstring word = L"";   // Переменная для хранения текущего слова
+
+        // Перебираем каждый символ входной строки
+        for (size_t i = 0; i <= input.length(); ++i) {
+            // Проверяем не конец ли строки или пробел
+            if (i < input.length() && !iswspace(input[i])) {
+                word += input[i]; // Добавляем символ в текущее слово
+            } else {
+                // Обработка слова
+                if (!word.empty()) {
+                    // Циклическая перестановка букв в слове
+                    wchar_t lastChar = word.back(); // Сохраняем последнюю букву
+                    word.erase(word.size() - 1); // Удаляем последнюю букву
+                    // Добавляем последнюю букву в начало слова
+                    output += lastChar + word + L' '; 
+                    word.clear(); // Очищаем текущее слово
+                }
+                output += L' '; // Добавляем пробел после слова
+            }
+        }
+
+        // Удаляем последний пробел, если он есть
+        if (!output.empty()) {
+            output.pop_back();
+        }
+
+        // Выводим измененный текст
+        wcout << L"Измененная строка: " << output << endl;
+    }
+
+    return 0;
+}
