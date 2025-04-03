@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <locale>
+#include <codecvt>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, ""); // Устанавливаем локаль для поддержки Unicode
+
+    wstring input; // Строка для ввода
+    wcout << L"Введите строку слов (разделенных пробелами) в конце end:" << endl;
+
+    while (true) {
+        getline(wcin, input);
+
+        // Проверка на пустой ввод
+        if (input.empty()) {
+            wcout << L"Ошибка 404: пустая строка. Попробуйте снова." << endl;
+            break;
+        }
+
+        if (input == L"end") {
+            break;
+        }
+
+        // Выводим исходную строку
+        wcout << L"Исходная строка: " << input << endl;
+
+        wstring longestWord = L""; // Переменная для хранения самого длинного слова
+        wstring currentWord = L"";  // Переменная для хранения текущего слова
+
+        // Перебираем каждый символ входной строки
+        for (size_t i = 0; i <= input.length(); ++i) {
+            // Проверяем не конец ли строки или пробел
+            if (i < input.length() && !iswspace(input[i])) {
+                currentWord += input[i]; // Добавляем символ в текущее слово
+            } else {
+                // Если текущее слово не пустое, проверяем его длину
+                if (!currentWord.empty()) {
+                    // Если текущее слово длиннее самого длинного слова, обновляем его
+                    if (currentWord.length() > longestWord.length()) {
+                        longestWord = currentWord;
+                    }
+                    currentWord.clear(); // Очищаем текущее слово
+                }
+            }
+        }
+
+        // Проверка, нашли ли мы самое длинное слово
+        if (!longestWord.empty()) {
+            wcout << L"Самое длинное слово: " << longestWord << endl;
+        } else {
+            wcout << L"Нет слов в введенной строке." << endl; // Сообщение о том, что нет слов
+        }
+    }
+
+    return 0;
+}
